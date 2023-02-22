@@ -1,11 +1,16 @@
 package com.example.jpa.board.controller;
 
-import com.example.jpa.board.entity.Board;
+import com.example.jpa.board.dto.BoardDto;
+import com.example.jpa.board.entity.BoardEntity;
 import com.example.jpa.board.service.BoardService;
+import com.example.jpa.common.exception.BoardException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -16,16 +21,34 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping(value = "")
-    public List<Board> findAllBoard() {
-        return boardService.findAllBoard();
+    public ResponseEntity<Page<BoardEntity>> findBoardAll(Pageable pageable) throws BoardException {
+        return boardService.findBoardAll(pageable);
     }
 
+//    처음 생각했던 map으로 결과 리턴
+//    @GetMapping(value = "")
+//    public Map<String, Object> findBoardAll(Pageable pageable) throws BoardException {
+//        return boardService.findBoardAll(pageable);
+//    }
+
     @GetMapping(value="/{boardSeq}")
-    public Optional<Board> findBoardBySeq(@PathVariable("boardSeq") Long boardSeq) {
+    public ResponseEntity<Optional<BoardEntity>> findBoardByBoardSeq(@PathVariable("boardSeq") Long boardSeq) throws BoardException{
         return boardService.findBoardBySeq(boardSeq);
     }
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<Page<BoardEntity>> findBoardByTitle(@RequestParam String title, Pageable pageable)throws BoardException {
+        return boardService.findByTitleContaining(title, pageable);
+    }
 
+    @PostMapping(value = "")
+    public ResponseEntity<BoardEntity> saveBoard(@RequestBody BoardEntity entity) throws BoardException {
+        return boardService.saveBoard(entity);
+    }
 
+    @DeleteMapping(value="/{boardSeq}")
+    public ResponseEntity<Optional<BoardEntity>> deleteBoard(@PathVariable("boardSeq") Long boardSeq) throws BoardException {
+        return boardService.deleteBoard(boardSeq);
+    }
 
 }
