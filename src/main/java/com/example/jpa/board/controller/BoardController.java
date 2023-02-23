@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,18 +21,12 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping(value = "")
-    public ResponseEntity<Page<BoardEntity>> findBoardAll(Pageable pageable) throws BoardException {
+    public ResponseEntity<Page<BoardDto>> findBoardAll(Pageable pageable) throws BoardException {
         return boardService.findBoardAll(pageable);
     }
 
-//    처음 생각했던 map으로 결과 리턴
-//    @GetMapping(value = "")
-//    public Map<String, Object> findBoardAll(Pageable pageable) throws BoardException {
-//        return boardService.findBoardAll(pageable);
-//    }
-
     @GetMapping(value="/{boardSeq}")
-    public ResponseEntity<Optional<BoardEntity>> findBoardByBoardSeq(@PathVariable("boardSeq") Long boardSeq) throws BoardException{
+    public ResponseEntity<BoardDto> findBoardByBoardSeq(@PathVariable("boardSeq") Long boardSeq) throws BoardException{
         return boardService.findBoardBySeq(boardSeq);
     }
 
@@ -47,8 +41,7 @@ public class BoardController {
     }
 
     @DeleteMapping(value="/{boardSeq}")
-    public ResponseEntity<Optional<BoardEntity>> deleteBoard(@PathVariable("boardSeq") Long boardSeq) throws BoardException {
+    public ResponseEntity<BoardEntity> deleteBoard(@PathVariable("boardSeq") Long boardSeq) throws BoardException {
         return boardService.deleteBoard(boardSeq);
     }
-
 }

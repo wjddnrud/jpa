@@ -4,6 +4,8 @@ public class Constants {
 
     public enum ExceptionClass {
 
+//        예외를 캐치할 각 클래스들을 상단에 선언해준다.
+        
         BOARD("Board");
 
         private String exceptionClass;
@@ -14,7 +16,7 @@ public class Constants {
 
         @Override
         public String toString() {
-            return getExceptionClass() + " Exception. ";
+            return getExceptionClass() + " Exception : ";
         }
     }
 }

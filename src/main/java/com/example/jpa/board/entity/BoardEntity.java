@@ -1,15 +1,18 @@
 package com.example.jpa.board.entity;
 
+import com.example.jpa.board.dto.BoardDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.rmi.registry.LocateRegistry;
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@Builder
 @Entity //JPA를 사용할 클래스를 명시하며, 데이터베이스의 테이블과 매핑하는 역할
 @Table(name="board") //name 속성을 이용해 데이터베이스상의 실제 테이블 명칭을 지정해주지 않으면
                      //클래스 이름 그대로 테이블이 생성되기 때문에 테이블명을 명시적으로 작성하는거이 관례
@@ -37,21 +40,23 @@ public class BoardEntity {
     @Column(name = "createdate")
     private LocalDateTime createDate;
 
-    @Builder
-    public BoardEntity(Long boardSeq, int writer, String title, String contents) {
+    public BoardEntity(Long boardSeq, int writer, String title, String contents, LocalDateTime createDate) {
         this.boardSeq = boardSeq;
         this.writer = writer;
         this.title = title;
         this.contents = contents;
+        this.createDate = createDate;
     }
 
-    //service 단에서 아래와 같이 사용해서 계층별로 구분해서 사용해야한다.
-
-//    BoardEntity boardEntity = BoardEntity.builder()
-//            .boardSeq(dto.getBoardSeq())
-//            .writer(dto.getWriter())
-//            .title(dto.getTitle())
-//            .contents(dto.getContents())
-//            .build();
+//    service 단에서 아래와 같이 사용해서 계층별로 구분해서 사용해야한다.
+//    public BoardDto toDto(BoardEntity boardEntity) {
+//        return BoardDto.builder()
+//                .boardSeq(boardEntity.getBoardSeq())
+//                .writer(boardEntity.getWriter())
+//                .title(boardEntity.getTitle())
+//                .contents(boardEntity.getContents())
+//                .createDate(boardEntity.getCreateDate())
+//                .build();
+//    }
 
 }

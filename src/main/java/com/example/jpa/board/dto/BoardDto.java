@@ -4,11 +4,14 @@ import com.example.jpa.board.entity.BoardEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
 @Setter
+@Builder
 
 public class BoardDto {
 
@@ -22,20 +25,32 @@ public class BoardDto {
 
     private LocalDateTime createDate;
 
-    @Builder
-    public void BoardDto(int writer, String title, String contents) {
+    public BoardDto(Long boardSeq, int writer, String title, String contents, LocalDateTime createDate) {
+        this.boardSeq = boardSeq;
         this.writer = writer;
         this.title = title;
         this.contents = contents;
+        this.createDate = createDate;
     }
 
-//    빌더패턴 잘 활용하기
-    public BoardEntity toEntity() {
-        return BoardEntity.builder()
-                .writer(writer)
-                .title(title)
-                .contents(contents)
-                .build();
+
+    public BoardDto toEntity(Optional<BoardEntity> oneBoard) {
+        return BoardDto.builder()
+                       .boardSeq(oneBoard.get().getBoardSeq())
+                       .writer(oneBoard.get().getWriter())
+                       .title(oneBoard.get().getTitle())
+                       .contents(oneBoard.get().getContents())
+                       .createDate(oneBoard.get().getCreateDate())
+                       .build();
     }
 
+    public Page<BoardDto> toDtoList(Page<BoardEntity> boardList) {
+        return boardList.map(m -> BoardDto.builder()
+                .boardSeq(m.getBoardSeq())
+                .writer(m.getWriter())
+                .title(m.getTitle())
+                .contents(m.getContents())
+                .createDate(m.getCreateDate())
+                .build());
+    }
 }
