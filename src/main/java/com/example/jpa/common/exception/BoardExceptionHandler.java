@@ -1,6 +1,5 @@
 package com.example.jpa.common.exception;
 
-import com.example.jpa.common.exception.BoardException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

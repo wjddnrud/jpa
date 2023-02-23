@@ -10,9 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping(value = "/board")
 @RequiredArgsConstructor // 생성자 주입을 대신해주는 롬복 어노테이션, final 객체를 Contructor Injection 해줌.(Autowired 역할)

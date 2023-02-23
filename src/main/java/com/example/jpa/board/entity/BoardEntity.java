@@ -1,13 +1,11 @@
 package com.example.jpa.board.entity;
 
-import com.example.jpa.board.dto.BoardDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.rmi.registry.LocateRegistry;
 import java.time.LocalDateTime;
 
 @Getter
