@@ -1,7 +1,6 @@
 package com.example.jpa.board.controller;
 
 import com.example.jpa.board.dto.BoardDto;
-import com.example.jpa.board.entity.BoardEntity;
 import com.example.jpa.board.service.BoardService;
 import com.example.jpa.common.exception.BoardException;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/board")
-@RequiredArgsConstructor // 생성자 주입을 대신해주는 롬복 어노테이션, final 객체를 Contructor Injection 해줌.(Autowired 역할)
+@RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
@@ -28,17 +27,17 @@ public class BoardController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity<Page<BoardEntity>> findBoardByTitle(@RequestParam String title, Pageable pageable)throws BoardException {
+    public ResponseEntity<Page<BoardDto>> findBoardByTitle(@RequestParam String title, Pageable pageable)throws BoardException {
         return boardService.findByTitleContaining(title, pageable);
     }
 
-    @PostMapping(value = "")
-    public ResponseEntity<BoardEntity> saveBoard(@RequestBody BoardEntity entity) throws BoardException {
-        return boardService.saveBoard(entity);
+    @DeleteMapping(value="/{boardSeq}")
+    public ResponseEntity<String> deleteBoard(@PathVariable("boardSeq") Long boardSeq) throws BoardException {
+        return boardService.deleteBoard(boardSeq);
     }
 
-    @DeleteMapping(value="/{boardSeq}")
-    public ResponseEntity<BoardEntity> deleteBoard(@PathVariable("boardSeq") Long boardSeq) throws BoardException {
-        return boardService.deleteBoard(boardSeq);
+    @PostMapping(value="")
+    public ResponseEntity<BoardDto> insertBoard(@RequestBody BoardDto boardDto) throws BoardException {
+        return boardService.insertBoard(boardDto);
     }
 }

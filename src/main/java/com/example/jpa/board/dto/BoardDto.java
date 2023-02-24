@@ -25,16 +25,7 @@ public class BoardDto {
 
     private LocalDateTime createDate;
 
-    public BoardDto(Long boardSeq, int writer, String title, String contents, LocalDateTime createDate) {
-        this.boardSeq = boardSeq;
-        this.writer = writer;
-        this.title = title;
-        this.contents = contents;
-        this.createDate = createDate;
-    }
-
-
-    public BoardDto toEntity(Optional<BoardEntity> oneBoard) {
+    public BoardDto toDto(Optional<BoardEntity> oneBoard) {
         return BoardDto.builder()
                        .boardSeq(oneBoard.get().getBoardSeq())
                        .writer(oneBoard.get().getWriter())

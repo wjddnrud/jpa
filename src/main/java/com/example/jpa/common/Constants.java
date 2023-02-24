@@ -4,11 +4,9 @@ public class Constants {
 
     public enum ExceptionClass {
 
-//        예외를 캐치할 각 클래스들을 상단에 선언해준다.
-        
         BOARD("Board");
 
-        private String exceptionClass;
+        private final String exceptionClass;
 
         ExceptionClass(String exceptionClass) { this.exceptionClass = exceptionClass;}
 
