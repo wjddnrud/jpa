@@ -1,5 +1,6 @@
 package com.example.jpa.board.repository;
 
+import com.example.jpa.board.dto.BoardDto;
 import com.example.jpa.board.entity.BoardEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
     void deleteById(Long boardSeq);
 
-    BoardEntity save(BoardEntity boardEntity);
+    BoardEntity save(BoardDto boardDto);
 
 }

@@ -1,15 +1,11 @@
 package com.example.jpa.board.entity;
 
-import com.example.jpa.board.dto.BoardDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
 @Getter
 @Entity
 @Table(name="board")
@@ -33,15 +29,38 @@ public class BoardEntity {
     @Column(name = "createdate")
     private LocalDateTime createDate;
 
+    @ManyToOne
+    @JoinTable(name="BOARD_MEMBER", joinColumns = @JoinColumn(name="writer"), inverseJoinColumns = @JoinColumn(name="mmSeq"))
+    private BoardEntity boardEntity;
 
-    public BoardEntity toEntity (BoardDto boardDto) {
-        return BoardEntity.builder()
-                .boardSeq(boardDto.getBoardSeq())
-                .writer(boardDto.getWriter())
-                .title(boardDto.getTitle())
-                .contents(boardDto.getContents())
-                .createDate(boardDto.getCreateDate())
-                .build();
-    }
+
+//    @Builder
+//    public BoardEntity(Long boardSeq, int writer, String title, String contents, LocalDateTime createDate) {
+//        this.boardSeq = boardSeq;
+//        this.writer = writer;
+//        this.title = title;
+//        this.contents = contents;
+//        this.createDate = createDate;
+//    }
+//
+//    public BoardEntity toEntity(BoardDto boardDto) {
+//        return BoardEntity.builder()
+//                .boardSeq(boardDto.getBoardSeq())
+//                .writer(boardDto.getWriter())
+//                .title(boardDto.getTitle())
+//                .contents(boardDto.getContents())
+//                .createDate(boardDto.getCreateDate())
+//                .build();
+//    }
+//
+//    public Page<BoardEntity> toEntityList(Page<BoardDto> boardDtoList) {
+//        return boardDtoList.map(m -> BoardEntity.builder()
+//                .boardSeq(m.getBoardSeq())
+//                .writer(m.getWriter())
+//                .title(m.getTitle())
+//                .contents(m.getContents())
+//                .createDate(m.getCreateDate())
+//                .build());
+//    }
 
 }
