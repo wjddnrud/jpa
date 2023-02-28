@@ -4,12 +4,14 @@ import com.example.jpa.board.dto.BoardDto;
 import com.example.jpa.board.entity.BoardEntity;
 import com.example.jpa.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -32,7 +34,7 @@ public class BoardService {
     }
 
     public ResponseEntity<Page<BoardEntity>> findByTitleContaining(String title, Pageable pageable) {
-        Page<BoardEntity> boardEntityList = boardRepository.findByTitleContaining(title, pageable);
+        Page<BoardEntity> boardEntityList = boardRepository.findByBdTitleContaining(title, pageable);
 //        Page<BoardDto> boardDtoList = BoardDto.builder().build().toDtoList(boardEntityList);
         return new ResponseEntity<>(boardEntityList, HttpStatus.OK);
     }
@@ -50,5 +52,6 @@ public class BoardService {
         boardRepository.save(boardDto);
         return new ResponseEntity<>(boardDto, HttpStatus.CREATED);
     }
+
 }
 

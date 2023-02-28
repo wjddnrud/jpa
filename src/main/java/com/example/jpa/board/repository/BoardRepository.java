@@ -14,7 +14,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
     Optional<BoardEntity> findById(Long boardSeq);
 
-    Page<BoardEntity> findByTitleContaining(String title, Pageable pageable);
+    Page<BoardEntity> findByBdTitleContaining(String title, Pageable pageable);
 
     void deleteById(Long boardSeq);
 
