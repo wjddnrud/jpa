@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Entity
@@ -29,8 +30,19 @@ public class BoardEntity {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column
-    private LocalDateTime bdCreateDate;
+    private Date bdCreateDate;
 
+
+
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "bd_mmSeq")
+//    private MemberEntity memberEntity;
+
+
+
+//    =================================================================================================
     // 연관 맵핑을 처리하기 위해 memberEntity 변수를 선언하고
     // 게시물과 회원은 N:1관계
 //    @ManyToOne // 다대일 관계 설정을 위한 @ManyToOne 어노테이션 추가
@@ -40,9 +52,9 @@ public class BoardEntity {
 
 
     //현재 클래스가 연관관계 주인
-    @ManyToOne
-    @JoinColumn(name = "bd_mmSeq")
-    private MemberEntity memberEntity;
+//    @ManyToOne
+//    @JoinColumn(name = "bd_mmSeq")
+//    private MemberEntity memberEntity;
 //    @Builder
 //    public BoardEntity(Long boardSeq, int writer, String title, String contents, LocalDateTime createDate) {
 //        this.boardSeq = boardSeq;
